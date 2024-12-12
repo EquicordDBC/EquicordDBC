@@ -38,33 +38,13 @@ import { Logger } from "@utils/Logger";
 import { openModal } from "@utils/modal";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByProps, findByPropsLazy, findStoreLazy, findByCodeLazy } from "@webpack";
-import {
-    Alerts,
-    ChannelStore,
-    Constants,
-    DraftStore,
-    DraftType,
-    FluxDispatcher,
-    Forms,
-    GuildMemberStore,
-    GuildStore,
-    MessageActions,
-    PermissionsBits,
-    PermissionStore,
-    PresenceStore,
-    React,
-    RestAPI,
-    SelectedChannelStore,
-    showToast,
-    Toasts,
-    UserStore,
-    useState,
-} from "@webpack/common";
+import { Alerts, ChannelStore, Constants, DraftStore, DraftType, FluxDispatcher, Forms, GuildMemberStore, GuildStore, MessageActions, PermissionsBits, PermissionStore, PresenceStore, React, RestAPI, SelectedChannelStore, showToast, Toasts, UserStore, useState, } from "@webpack/common";
 
 import { Channel, Guild, Message, User } from "discord-types/general";
 
 import EmbedEditorModal from "./components/EmbedEditor";
 import { iconSvg } from "./icon.svg";
+import { EquicordDevs } from "@utils/constants";
 
 const EPOCH = 1_420_070_400_000;
 let INCREMENT = BigInt(0);
@@ -288,11 +268,12 @@ export default definePlugin({
     description:
         "Patch the current version of Discord to allow the use of bot accounts",
     authors: [
-        {
-            // Hard code
-            name: "Elysia",
-            id: 721746046543331449n,
-        },
+        // Did the most work <3
+        { name: "Elysia", id: 721746046543331449n },
+        // Made it work with Equicord
+        { name: "Amy", id: 1203712057640357898n },
+        // Maintainer of GitHub Repo and Org
+        EquicordDevs.KrystalSkull,
     ],
     enabledByDefault: true,
     dependencies: ["CommandsAPI", "MessagePopoverAPI", "ChatInputButtonAPI", "UserSettingsAPI"],
@@ -987,8 +968,8 @@ if (allShards > 1) {
                 const id = findOption<number>(opts, "id", 0);
                 if (id < 0 || id + 1 > window.allShards) {
                     sendBotMessage(ctx.channel.id, {
-                        content: 
-`### Invalid shardId
+                        content:
+                            `### Invalid shardId
 🚫 Must be greater than or equal to **0** and less than or equal to **${window.allShards - 1}**.
 **${id}** is an invalid number`,
                     });
@@ -1370,13 +1351,13 @@ if (allShards > 1) {
                 memberCount: memberCount,
                 type: "GUILD_MEMBER_LIST_UPDATE",
             });
-/*
-            BotClientLogger.info(
-                "Update MemberList: Interval",
-                this.settings.store.memberListInterval * 1000,
-                "ms",
-            );
-*/
+            /*
+                        BotClientLogger.info(
+                            "Update MemberList: Interval",
+                            this.settings.store.memberListInterval * 1000,
+                            "ms",
+                        );
+            */
         };
 
         if (this.settings.store.memberListInterval) {
